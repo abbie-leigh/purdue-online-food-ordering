@@ -1,4 +1,3 @@
-// cart.js
 (function () {
   const { useSyncExternalStore } = React;
   const listeners = new Set();
