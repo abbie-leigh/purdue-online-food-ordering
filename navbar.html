@@ -1,25 +1,25 @@
-<nav class="shadow-md">
+<nav class="shadow-md relative">
     <div class="max-w-7xl mx-auto px-4">
         <div class="flex justify-between items-center h-16">
             <!-- Logo / App Name -->
-            <div class="text-2xl font-bold text-orange-500">
+            <a href="restaurants.html" class="text-2xl font-semibold text-orange-400">
                 Purdue Foodies
-            </div>
+            </a>
 
             <!-- Right Side Buttons -->
             <div class="flex items-center gap-3">
-                <button class="text-gray-700 hover:text-orange-500 font-medium">
+                <button class="text-gray-700 hover:text-orange-400 font-medium">
                     Login
                 </button>
 
-                <button class="bg-orange-500 text-white font-semibold px-3 py-1 rounded-2xl hover:bg-orange-600 ">
+                <button class="bg-orange-400 text-white font-semibold px-3 py-1 rounded-2xl hover:bg-orange-500 ">
                     Sign Up
                 </button>
 
                 <!-- Cart button -->
                 <button id="cartBtn" type="button"
-                    class="relative inline-flex items-center justify-center rounded-lg p-2 text-gray-700 hover:text-orange-500 hover:bg-orange-50 transition"
-                    aria-label="Open cart">
+                    class="relative inline-flex items-center justify-center rounded-lg p-2 text-gray-700 hover:text-orange-400 hover:bg-orange-50"
+                    aria-label="Open cart" onclick="window.cartDisplay.open()">
 
                     <!-- Cart icon (SVG) -->
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Purdue Foodies Login</title>
+    <title>Purdue Foodie Restaurants</title>
 
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -15,20 +15,24 @@
 
     <!-- Cart functionality -->
     <script src="js/cart.js"></script>
-    <script type="text/babel" src="js/cart-ui.js"></script>
 
     <!-- Babel (lets you write JSX in the browser) -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 
-<body class="bg-orange-50 min-h-screen flex items-center justify-center">
-    <!-- Cart & Navbar -->
-    <div id="cart"></div>
+<body>
+    <!-- Navbar -->
     <div id="navbar"></div>
-    <script type="text/babel" src="js/navbar.js"></script>
+    <script src="js/navbar.js"></script>
 
-    <!-- Login -->
-    <div id="signup-root"></div>
+    <!-- Main content -->
+    <main class="bg-orange-50 min-h-screen">
+        <div class="max-w-6xl mx-auto p-6">
+            <!-- Grid -->
+            <section id="restaurantGrid"></section>
+        </div>
+    </main>
+    <script type="text/babel" src="js/restaurants.js"></script>
 </body>
 
 </html>

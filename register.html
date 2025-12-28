@@ -4,79 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Purdue Foodies Registration</title>
+    <title>Purdue Foodies Login</title>
+
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- React 18 + ReactDOM (UMD builds) -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+    <!-- Cart functionality -->
+    <script src="js/cart.js"></script>
+    <script type="text/babel" src="js/cart-ui.js"></script>
+
+    <!-- Babel (lets you write JSX in the browser) -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 
 <body>
     <!-- Navbar -->
     <div id="navbar"></div>
-    <script src="js/navbar.js"></script>
-
-    <main class="min-h-screen flex items-center justify-center px-4">
-        <div class="w-full max-w-md bg-white rounded-lg shadow-md p-6">
-
-            <h1 class="text-2xl font-bold text-center mb-6">
-                Create an Account
-            </h1>
-
-            <!-- Sign Up Form -->
-            <form id="signupForm" class="space-y-4">
-
-                <!-- First Name -->
-                <div>
-                    <label for="firstName" class="block text-sm font-medium text-gray-700">
-                        First Name
-                    </label>
-                    <input id="firstName" type="text" required
-                        class="w-full border rounded-lg border-gray-300 p-2 mt-1 mb-1" />
-                </div>
-
-                <!-- Last Name -->
-                <div>
-                    <label for="lastName" class="block text-sm font-medium text-gray-700">
-                        Last Name
-                    </label>
-                    <input id="lastName" type="text" required
-                        class="w-full border rounded-lg border-gray-300 p-2 mt-1 mb-1" />
-                </div>
-
-                <!-- Email -->
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700">
-                        Email Address
-                    </label>
-                    <input id="email" type="email" required
-                        class="w-full border rounded-lg border-gray-300 p-2 mt-1 mb-1" />
-                </div>
-
-                <!-- Password -->
-                <div>
-                    <label for="password" class="block text-sm font-medium text-gray-700">
-                        Password
-                    </label>
-                    <input id="password" type="password" required minlength="6"
-                        class="w-full border rounded-lg border-gray-300 p-2 mt-1 mb-1" />
-                </div>
-
-                <!-- Submit -->
-                <button type="submit"
-                    class="w-full bg-orange-500 text-white py-2 rounded-lg font-medium hover:bg-orange-600 transition">
-                    Sign Up
-                </button>
-
-            </form>
-
-            <p class="text-sm text-center text-gray-600 mt-4">
-                Already have an account?
-                <a href="login.html" class="text-orange-500 hover:underline">
-                    Log in
-                </a>
-            </p>
-
-        </div>
-    </main>
-
+    <script type="text/babel" src="js/navbar.js"></script>
+    
+    <!-- Login -->
+    <div id="signup-root" class="bg-orange-50 min-h-screen flex items-center justify-center"></div>
+    <script type="text/babel" src="js/register.js"></script>
 </body>
 
 </html>
