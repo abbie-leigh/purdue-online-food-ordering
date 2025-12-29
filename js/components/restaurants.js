@@ -42,10 +42,10 @@ function RestaurantCard({ restaurant }) {
           <p className="text-xs text-stone-500">{restaurant.cuisine}</p>
         </div>
 
-        <div className="relative overflow-hidden after:absolute after:inset-0 after:bg-gradient-to-t after:from-slate-950/60 after:to-transparent after:pointer-events-none">
+        <div className="relative overflow-hidden after:pointer-events-none">
           <img
             src={restaurant.image}
-            className="h-20 w-full object-cover transition duration-300 group-hover:scale-[1.02]"
+            className="h-40 w-full object-cover duration-300 group-hover:scale-[1.02]"
             loading="lazy"
           />
         </div>

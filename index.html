@@ -6,10 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Purdue Foodies</title>
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- React 18 + ReactDOM (UMD builds) -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+    <!-- Babel (lets you write JSX in the browser) -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Cart functionality -->
+    <script type="text/babel" src="js/components/cart.js"></script>
+    <script type="text/babel" src="js/cart.global.js"></script>
+
+    <!-- User database -->
+    <script src="js/userDb.js"></script>
 </head>
 
 <body>
-    <!-- Navbar -->
+    <!-- Cart & Navbar -->
+    <div id="cart"></div>
     <div id="navbar"></div>
     <script type="text/babel" src="js/components/navbar.js"></script>
 

@@ -13,22 +13,26 @@
     <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
 
-    <!-- Cart functionality -->
-    <script src="js/components/cart.js"></script>
-    <script type="text/babel" src="js/cart.global.js"></script>
-
     <!-- Babel (lets you write JSX in the browser) -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Cart functionality -->
+    <script type="text/babel" src="js/components/cart.js"></script>
+    <script type="text/babel" src="js/cart.global.js"></script>
+
+    <!-- User database -->
+    <script src="js/userDb.js"></script>
 </head>
 
-<body class="bg-orange-50 min-h-screen flex items-center justify-center">
+<body class="min-h-screen flex flex-col">
     <!-- Cart & Navbar -->
     <div id="cart"></div>
     <div id="navbar"></div>
     <script type="text/babel" src="js/components/navbar.js"></script>
 
     <!-- Login -->
-    <div id="signup-root"></div>
+    <div id="login-root" class="flex-1 bg-orange-50 flex items-center justify-center"></div>
+    <script type="text/babel" src="js/components/login.js"></script>
 </body>
 
 </html>

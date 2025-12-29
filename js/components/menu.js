@@ -45,7 +45,7 @@ function MenuHeader({ restaurant }) {
     if (!restaurant) return null;
 
     return (
-        <header className="relative h-[20vh] min-h-[200px] w-full shadow">
+        <header className="relative h-[10vh] min-h-[100px] w-full shadow">
             {/* Image */}
             <img src={restaurant.image}
                 className="absolute inset-0 h-full w-full object-cover" />

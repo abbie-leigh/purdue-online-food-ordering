@@ -6,6 +6,9 @@ function SignupForm() {
         password: ""
     });
 
+    const [msg, setMsg] = React.useState("");
+    const [error, setError] = React.useState("");
+
     function handleChange(e) {
         setForm({
             ...form,
@@ -13,8 +16,20 @@ function SignupForm() {
         });
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
+        setMsg("");
+        setError("");
+
+        try {
+            await window.userDb.createUser(form);
+            setMsg("Account created! You're now logged in.");
+
+            // If you have a separate page after signup:
+            // window.location.href = "index.html";
+        } catch (err) {
+            setError(err.message || "Something went wrong.");
+        }
     }
 
     return (
@@ -31,37 +46,40 @@ function SignupForm() {
                     label="First Name"
                     name="firstName"
                     value={form.firstName}
-                    onChange={handleChange} />
+                    onChange={handleChange}/>
 
                 <Input
                     label="Last Name"
                     name="lastName"
                     value={form.lastName}
-                    onChange={handleChange} />
+                    onChange={handleChange}/>
 
                 <Input
                     label="Email Address"
                     name="email"
                     type="email"
                     value={form.email}
-                    onChange={handleChange} />
+                    onChange={handleChange}/>
 
                 <Input
                     label="Password"
                     name="password"
                     type="password"
                     value={form.password}
-                    onChange={handleChange} />
+                    onChange={handleChange}/>
 
                 <button
                     type="submit"
                     className="w-full bg-orange-400 text-white py-3 rounded-xl font-semibold
-                         hover:bg-orange-500 active:scale-[0.98]">
+                   hover:bg-orange-500 active:scale-[0.98]">
                     Sign Up
                 </button>
             </form>
 
-            <p className="text-sm text-center text-stone-600 mt-2">
+            {msg && <p className="mt-4 text-sm text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-xl p-3">{msg}</p>}
+            {error && <p className="mt-4 text-sm text-red-700 bg-red-50 border border-red-200 rounded-xl p-3">{error}</p>}
+
+            <p className="text-sm text-center text-stone-600 mt-4">
                 Already have an account?{" "}
                 <a href="login.html" className="text-orange-400 font-medium hover:underline">
                     Log in
