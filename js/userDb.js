@@ -82,16 +82,61 @@
     return newUser;
   }
 
+  async function updateCurrentUserProfile({ firstName, lastName, email, password }) {
+    await ensureAdminUser();
+
+    const current = getCurrentUser();
+    if (!current) throw new Error("Not logged in.");
+
+    const users = loadUsers();
+
+    const nextFirstName = String(firstName ?? "").trim();
+    const nextLastName = String(lastName ?? "").trim();
+    const nextEmail = String(email ?? "").trim();
+    const nextEmailNorm = normalizeEmail(nextEmail);
+
+    // If email changed, ensure it's not taken by someone else
+    const emailTakenByOther = users.some(
+      (u) => u.emailNorm === nextEmailNorm && u.id !== current.id
+    );
+    if (emailTakenByOther) {
+      throw new Error("An account with that email already exists.");
+    }
+
+    const idx = users.findIndex((u) => u.id === current.id);
+    if (idx === -1) throw new Error("User not found.");
+
+    const updated = { ...users[idx] };
+
+    updated.firstName = nextFirstName;
+    updated.lastName = nextLastName;
+    updated.email = nextEmail;
+    updated.emailNorm = nextEmailNorm;
+
+    // Password is optional on profile update:
+    // if user leaves it blank, keep existing passwordHash
+    const pwd = String(password ?? "");
+    if (pwd.trim().length > 0) {
+      updated.passwordHash = await sha256(pwd);
+    }
+
+    users[idx] = updated;
+    saveUsers(users);
+
+    return updated;
+  }
+
+
   async function login({ email, password }) {
     await ensureAdminUser();
 
     const users = loadUsers();
     const emailNorm = normalizeEmail(email);
     const user = users.find((u) => u.emailNorm === emailNorm);
-    if (!user) throw new Error("No account found for that email.");
+    if (!user) throw new Error("Invalid username or password!");
 
     const passwordHash = await sha256(password);
-    if (user.passwordHash !== passwordHash) throw new Error("Incorrect password.");
+    if (user.passwordHash !== passwordHash) throw new Error("Invalid username or password!");
 
     localStorage.setItem(CURRENT_USER_KEY, user.id);
     return user;
@@ -149,12 +194,11 @@
   // expose API
   window.userDb = {
     createUser,
+    updateCurrentUserProfile,
     login,
     logOut,
     getCurrentUser,
     isEmailTaken,
-
-    // NEW exports
     ensureAdminUser,
     isAdmin,
     listUsers,
@@ -165,5 +209,5 @@
   };
 
   // Ensure admin exists ASAP (doesn't block)
-  window.userDb.ensureAdminUser().catch(() => {});
+  window.userDb.ensureAdminUser().catch(() => { });
 })();

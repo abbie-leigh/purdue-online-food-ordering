@@ -50,7 +50,6 @@ function AdminPage() {
     if (!me) return;
     if (!isAdmin) return;
     loadUsers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [me, isAdmin]);
 
   const fmtDate = (iso) => {

@@ -13,6 +13,22 @@ function Menu() {
     const [restaurantData, setData] = useState(null);
     const cartCount = window.cartStore.useCartCount();
 
+    // ✅ toast state
+    const [toast, setToast] = useState(null);
+
+    useEffect(() => {
+        const onAdded = (e) => {
+            const name = e?.detail?.item?.name ?? "Item";
+            setToast(`${name} added to cart ✅`);
+            // auto-hide after 1.6s
+            window.clearTimeout(window.__toastTimer);
+            window.__toastTimer = window.setTimeout(() => setToast(null), 1600);
+        };
+
+        window.addEventListener("cart:item-added", onAdded);
+        return () => window.removeEventListener("cart:item-added", onAdded);
+    }, []);
+
     useEffect(() => {
         let cancelled = false;
 
@@ -29,12 +45,22 @@ function Menu() {
     const restaurant = useMemo(
         () => restaurantData?.restaurants?.find((r) => String(r.id) === RESTAURANT_ID),
         [restaurantData])
+
     return (
-        <div>
+        <div className="min-h-screen flex flex-col bg-orange-100">
+            {/* ✅ toast */}
+            {toast && (
+                <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50">
+                    <div className="rounded-2xl bg-green-100 text-green-800 px-4 py-2 shadow-md text-sm font-medium border border-green-200">
+                        {toast}
+                    </div>
+                </div>
+            )}
+
             <div id="menuHeader">
                 <MenuHeader restaurant={restaurant} />
             </div>
-            <div id="menuGrid">
+            <div id="menuGrid" className="flex-1">
                 <MenuGrid restaurant={restaurant} />
             </div>
         </div>
@@ -45,7 +71,7 @@ function MenuHeader({ restaurant }) {
     if (!restaurant) return null;
 
     return (
-        <header className="relative h-[10vh] min-h-[100px] w-full shadow">
+        <header className="relative h-[10vh] min-h-[100px] w-full shadow shadow-black">
             {/* Image */}
             <img src={restaurant.image}
                 className="absolute inset-0 h-full w-full object-cover" />
@@ -68,10 +94,10 @@ function MenuGrid({ restaurant }) {
 
     const items = useMemo(() => restaurant?.menu?.items ?? [], [restaurant]);
     return (
-        <main className="max-w-6xl mx-auto p-6 bg-orange-50">
+        <main>
             <section
                 aria-live="polite"
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                className="max-w-6xl mx-auto p-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {items.map((item) => (
                     <MenuItem key={item.id ?? item.name} item={item} />
                 ))}
@@ -84,18 +110,18 @@ function MenuItem({ item }) {
     const price = formatPrice(item.price);
 
     return (
-        <article className="bg-white rounded-2xl shadow-md border border-slate-100 overflow-hidden flex flex-col h-full">
+        <article className="bg-white rounded-2xl shadow-sm shadow-stone-800 overflow-hidden flex flex-col h-full">
             {/* Top: Title + Price */}
             <div className="p-4">
                 <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
-                        <h2 className="text-lg text-slate-800 font-semibold truncate">
+                        <h2 className="text-lg text-stone-800 font-semibold truncate">
                             {item.name}
                         </h2>
-                        <p className="text-xs text-slate-500">{item.description}</p>
+                        <p className="text-xs text-stone-500">{item.description}</p>
                     </div>
 
-                    <p className="text-lg text-slate-800 font-semibold whitespace-nowrap">
+                    <p className="text-lg text-stone-800 font-semibold whitespace-nowrap">
                         {price}
                     </p>
                 </div>
@@ -106,11 +132,14 @@ function MenuItem({ item }) {
                 <img
                     src={item.image}
                     alt={item.name}
-                    className="w-full h-64 object-cover"
+                    className="w-full h-48 object-cover"
                 />
+                {/* soft overlay */}
+                <div className="absolute inset-0 bg-stone-500/20" />
+                
                 <button
                     className="absolute bottom-3 right-3 z-10 px-4 py-2 text-sm font-semibold rounded-xl
-                           bg-white text-slate-800 shadow-2xl
+                           bg-white text-stone-800 shadow-sm shadow-stone-800
                            hover:bg-orange-400 hover:text-white"
                     aria-label={`Add ${item.name} to cart`}
                     onClick={() => window.cartStore.addToCart(item)}>

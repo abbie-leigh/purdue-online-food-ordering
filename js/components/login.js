@@ -98,7 +98,7 @@ function Input({ label, name, type = "text", value, onChange }) {
         required
         value={value}
         onChange={onChange}
-        className="w-full rounded-xl border border-slate-300 px-4 py-2
+        className="w-full rounded-xl border border-stone-300 px-4 py-2
                    focus:outline-none focus:ring-1 focus:ring-orange-300
                    focus:border-orange-300 text-stone-800"
       />

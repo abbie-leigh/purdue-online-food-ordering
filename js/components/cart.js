@@ -46,7 +46,7 @@ function CartDrawer({ open, onClose }) {
                 ref={panelRef}
                 tabIndex={-1}>
                 <div className="flex h-full flex-col">
-                    <div className="flex items-center justify-between px-4 py-4 shadow">
+                    <div className="sticky top-0 z-10 flex items-center justify-between px-4 py-4 shadow">
                         <div>
                             <div className="text-lg font-semibold text-stone-800">Cart</div>
                             <div className="text-sm text-stone-400">{count} item{count === 1 ? "" : "s"}</div>
@@ -73,7 +73,7 @@ function CartDrawer({ open, onClose }) {
                         </button>
                     </div>
 
-                    <div className="flex-1 overflow-auto p-4">
+                    <div className="flex-1 overflow-auto p-4 bg-orange-50">
                         <CartItems items={items}/>
                     </div>
 
@@ -104,7 +104,7 @@ function CartDrawer({ open, onClose }) {
 function CartItems({ items }) {
     if (items.length === 0) {
         return (
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-stone-500">
+            <div className="rounded-2xl border border-white/10 p-4 text-stone-500">
                 Your cart is empty! {":("}
             </div>
         );
@@ -114,7 +114,7 @@ function CartItems({ items }) {
             {items.map((item) => (
                 <li
                     key={item.item.id}
-                    className="rounded-2xl shadow p-4 border border-white/10">
+                    className="rounded-2xl bg-white shadow-sm shadow-stone-800/40 p-4 border border-white/10">
 
                     {/* Top row: title (left) + price (right) */}
                     <div className="flex items-start justify-between gap-4">

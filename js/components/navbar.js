@@ -70,7 +70,7 @@ function Navbar({
   };
 
   return (
-    <nav className="shadow-md relative z-40">
+    <nav className="shadow-sm shadow-stone-800/40 relative z-40">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo/ App Name */}
@@ -106,7 +106,7 @@ function Navbar({
                   aria-haspopup="menu"
                   aria-expanded={accountOpen}
                   onClick={() => setAccountOpen((v) => !v)}>
-                  Your Account
+                  {currentUser?.firstName || "Your Account"}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className={"h-4 w-4 transition-transform " + (accountOpen ? "rotate-180" : "")}
@@ -121,20 +121,20 @@ function Navbar({
                 {accountOpen && (
                   <div
                     role="menu"
-                    className="absolute right-0 mt-2 w-30 rounded-xl border bg-white shadow-lg overflow-hidden">
+                    className="absolute right-0 mt-2 w-44 rounded-xl border bg-white shadow-lg overflow-hidden z-40">
+                    {/* Profile Menu Option */}
                     <button
                       role="menuitem"
                       type="button"
                       className="w-full text-left px-4 py-2 text-gray-700 hover:bg-orange-50 hover:text-orange-500"
-                      onClick={handleSignOut}>
-                      Sign out
+                      onClick={() => {
+                        setAccountOpen(false);
+                        window.location.href = "profile.html";
+                      }}>
+                      Profile
                     </button>
-                  </div>
-                )}
-                {accountOpen && (
-                  <div
-                    role="menu"
-                    className="absolute right-0 mt-2 w-44 rounded-xl border bg-white shadow-lg overflow-hidden z-40">
+
+                    {/* Sign Out Menu Option */}
                     <button
                       role="menuitem"
                       type="button"
@@ -143,7 +143,7 @@ function Navbar({
                       Sign out
                     </button>
 
-                    {/* Admin-only option */}
+                    {/* Manage Users Menu Option (Admin Only) */}
                     {window.userDb?.isAdmin?.() && (
                       <button
                         role="menuitem"
@@ -190,7 +190,7 @@ function Navbar({
               <span
                 id="cartCount"
                 className={
-                  "absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-orange-500 text-white text-xs leading-[18px] text-center " +
+                  "absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-orange-100 text-orange-400 font-semibold text-xs leading-[18px] text-center " +
                   (badgeHidden ? "hidden" : "")
                 }>
                 {cartCount}
@@ -209,7 +209,7 @@ root.render(
   <Navbar
     onLogin={() => (window.location.href = "login.html")}
     onSignUp={() => (window.location.href = "register.html")}
-    getCartCount={() => window.cartDisplay?.count?.() ?? window.cartCount ?? 0}
+    getCartCount={() => window.cartStore?.getCartCount?.() ?? 0}
     onCartOpen={() => window.cartDisplay?.open?.()}
   />
 );

@@ -33,26 +33,36 @@ function RestaurantGrid() {
 
 function RestaurantCard({ restaurant }) {
   return (
-    <article className="group overflow-hidden rounded-2xl border border-white bg-white shadow-lg shadow-black/20 transition">
+    <article className="group overflow-hidden rounded-2xl shadow-sm shadow-stone-800 transition">
       <a href={`menu.html?id=${restaurant.id}`} className="block">
-        <div className="p-3 flex items-center justify-between gap-3">
-          <h2 className="text-lg text-stone-800 font-semibold truncate">
-            {restaurant.name}
-          </h2>
-          <p className="text-xs text-stone-500">{restaurant.cuisine}</p>
-        </div>
-
-        <div className="relative overflow-hidden after:pointer-events-none">
+        <div className="relative overflow-hidden">
           <img
             src={restaurant.image}
-            className="h-40 w-full object-cover duration-300 group-hover:scale-[1.02]"
+            className="h-40 w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
             loading="lazy"
-          />
-        </div>
+            alt={restaurant.name}/>
 
+          {/* Soft Overlay */}
+          <div className="absolute inset-0 bg-black/5" />
+
+          {/* Center Bar */}
+          <div className="absolute inset-x-0 top-1/4 -translate-y-1/2">
+            <div className="bg-white px-3 py-2 shadow-sm shadow-stone-800 backdrop-blur-sm">
+              <div className="flex items-baseline justify-between gap-2">
+                <h2 className="min-w-0 truncate text-base font-semibold text-stone-900">
+                  {restaurant.name}
+                </h2>
+                <p className="shrink-0 text-[11px] font-medium text-stone-600">
+                  {restaurant.cuisine}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </a>
     </article>
   );
 }
+
 
 ReactDOM.createRoot(document.getElementById("restaurantGrid")).render(<RestaurantGrid />);
