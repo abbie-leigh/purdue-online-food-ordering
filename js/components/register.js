@@ -33,7 +33,7 @@ function SignupForm() {
     }
 
     return (
-        <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
+        <div className="w-full max-w-md bg-white rounded-2xl shadow-sm shadow-stone-800/50 p-8">
             <h1 className="text-3xl font-bold text-center text-orange-400 mb-2">
                 Create Account
             </h1>
