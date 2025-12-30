@@ -94,7 +94,7 @@ function ProfilePage() {
   return (
     <div className="w-full max-w-lg bg-white rounded-2xl shadow-lg overflow-hidden">
       {/* Header */}
-      <div className="bg-orange-400 text-white px-6 py-6">
+      <div className="bg-orange-400 text-white px-6 py-3">
         <div className="flex items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold">
@@ -107,8 +107,7 @@ function ProfilePage() {
             <button
               type="button"
               onClick={startEdit}
-              className="bg-white text-orange-500 font-semibold px-4 py-2 rounded-xl hover:bg-orange-50 active:scale-[0.98]"
-            >
+              className="bg-white text-orange-400 font-semibold px-4 py-2 rounded-xl hover:bg-orange-50 active:scale-[0.98]">
               Edit Profile
             </button>
           ) : (
@@ -116,15 +115,13 @@ function ProfilePage() {
               <button
                 type="button"
                 onClick={cancelEdit}
-                className="bg-white/20 text-white font-semibold px-4 py-2 rounded-xl hover:bg-white/30 active:scale-[0.98]"
-              >
+                className="bg-white/20 text-white font-semibold px-4 py-2 rounded-xl hover:bg-white/30 active:scale-[0.98]">
                 Cancel
               </button>
               <button
                 type="button"
                 onClick={save}
-                className="bg-white text-orange-500 font-semibold px-4 py-2 rounded-xl hover:bg-orange-50 active:scale-[0.98]"
-              >
+                className="bg-white text-orange-500 font-semibold px-4 py-2 rounded-xl hover:bg-orange-50 active:scale-[0.98]">
                 Update
               </button>
             </div>
@@ -166,8 +163,7 @@ function ProfilePage() {
             value={draft.password}
             onChange={onChange}
             isEditing={true}
-            placeholder="Leave blank to keep current password"
-          />
+            placeholder="Leave blank to keep current password"/>
         )}
 
         {msg && (
@@ -185,20 +181,9 @@ function ProfilePage() {
         <div className="pt-2 flex justify-between">
           <a
             href="restaurants.html"
-            className="text-sm text-orange-400 font-medium hover:underline"
-          >
+            className="text-sm text-orange-400 font-medium hover:underline">
             Back to restaurants
           </a>
-
-          {/* Optional: quick sign out here if you want
-          <button
-            type="button"
-            onClick={() => { window.userDb?.logOut?.(); window.location.href="restaurants.html"; }}
-            className="text-sm text-stone-500 hover:text-orange-400"
-          >
-            Sign out
-          </button>
-          */}
         </div>
       </div>
     </div>
