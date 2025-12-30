@@ -40,17 +40,17 @@ Each HTML page loads:
 
 ---
 
-### JavaScript – Data / State
+## JavaScript – Data / State
 
-#### `cartDb.js`
+### `cartDb.js`
 - Manages shopping cart state
 - Uses `localStorage` for persistence
-- Stores items in a `Map` structure
+- Stores items internally using a `Map`
 - Exposes a global `cartStore`
 - Integrates with React via `useSyncExternalStore`
-- Dispatches a `cart:item-added` custom event when items are added
+- Dispatches a `cart:item-added` custom browser event when items are added
 
-#### `userDb.js`
+### `userDb.js`
 - Manages user accounts and authentication
 - Stores users in `localStorage`
 - Passwords are hashed using SHA-256 via the Web Crypto API
@@ -62,18 +62,65 @@ Each HTML page loads:
 
 ---
 
-### JavaScript – UI Logic
+## JavaScript – UI Logic
 
-#### `restaurants.js`
+### `restaurants.js`
 - Fetches restaurant data from a remote JSON endpoint
 - Renders a responsive restaurant grid using React
-- Links each restaurant to its menu page
+- Each restaurant card links to its corresponding menu page
 
-#### `menu.js`
+### `menu.js`
 - Reads the restaurant ID from the URL query string
 - Fetches restaurant data and displays menu items
 - Allows users to add items to the cart
-- Shows a toast notification when an item is added
+- Displays a toast notification when an item is added
+
+### `admin.js`
+- Renders the Admin Users table
+- Restricts access to logged-in admin users only
+- Redirects non-authenticated or non-admin users
+- Loads users via `userDb.listUsers()`
+- Allows deleting non-protected users with confirmation
+- Refreshes the list after user removal
+
+### `cart.js`
+- Implements the slide-out cart drawer UI
+- Subscribes to cart state using `cartStore`
+- Displays line items, quantities, and subtotal
+- Supports increment/decrement quantity controls
+- Removes items by decrementing quantity to zero
+- “Place Order” clears the cart and displays confirmation
+- Exposes a global `window.cartDisplay` API for opening/closing the cart
+
+### `login.js`
+- Renders the login form UI
+- Uses controlled inputs for credentials
+- Authenticates users via `userDb.login()`
+- Displays success or error messages
+- Redirects to the restaurant list on successful login
+
+### `register.js`
+- Renders the registration form
+- Collects user profile and password information
+- Creates a new user via `userDb.createUser()`
+- Displays validation and error feedback
+- Designed for demo usage without forced auto-login
+
+### `profile.js`
+- Displays the current user’s profile information
+- Redirects to login if no user is authenticated
+- Supports read-only and edit modes
+- Uses a draft state for safe editing
+- Saves updates via `userDb.updateCurrentUserProfile()`
+- Displays success or error messages on save
+
+### `navbar.js`
+- Renders the site-wide navigation bar
+- Displays login/register buttons or user menu based on auth state
+- Shows cart item count badge (hidden when empty)
+- Provides profile navigation and logout functionality
+- Displays admin-only links conditionally
+- Opens the cart drawer via `window.cartDisplay.open()`
 
 ---
 
@@ -120,7 +167,7 @@ The app expects data in the format:
 
 - React is loaded via CDN instead of a build tool
 - JSX is compiled in the browser using Babel
-- Application state is managed with custom stores and browser APIs
+- Application state is managed using browser APIs and custom stores
 - Authentication and authorization are simulated client-side
 - Semantic HTML and basic accessibility attributes are used
 
